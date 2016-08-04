@@ -1,0 +1,81 @@
+[root@puppetserver-cache-test foobar]# cat /tmp/foobar_value                                                                                                                                                                          [25/2372]
+[root@puppetserver-cache-test foobar]# facter foobar_a foobar_b foobar_c                                                                                                                                                                       
+foobar_a => 
+foobar_b => 2
+foobar_c => -12
+[root@puppetserver-cache-test foobar]# systemctl restart puppetserver
+[root@puppetserver-cache-test foobar]# puppet agent -t
+Info: Using configured environment 'production'
+Info: Retrieving pluginfacts
+Info: Retrieving plugin
+Info: Caching catalog for puppetserver-cache-test
+Info: Applying configuration version '1470334386'
+Notice: /Stage[main]/Foobar/File[/etc/puppetlabs/facter/facts.d/foobar_a.txt]/ensure: defined content as '{md5}6a6612c9ed6bc77ed5e1924756a1476a'
+Notice: /Stage[main]/Foobar/File[/etc/puppetlabs/facter/facts.d/foobar_b.txt]/content: 
+--- /etc/puppetlabs/facter/facts.d/foobar_b.txt 2016-08-04 18:10:45.749989421 +0000
++++ /tmp/puppet-file20160804-17692-1v61m75      2016-08-04 18:13:06.708207452 +0000
+@@ -1 +1 @@
+-foobar_b=2
++foobar_b=3
+\ No newline at end of file
+
+Info: Computing checksum on file /etc/puppetlabs/facter/facts.d/foobar_b.txt
+Info: /Stage[main]/Foobar/File[/etc/puppetlabs/facter/facts.d/foobar_b.txt]: Filebucketed /etc/puppetlabs/facter/facts.d/foobar_b.txt to puppet with sum dbd981724d572241800c6358d1e1f247
+Notice: /Stage[main]/Foobar/File[/etc/puppetlabs/facter/facts.d/foobar_b.txt]/content: content changed '{md5}dbd981724d572241800c6358d1e1f247' to '{md5}2b58c101b03c233ceb4e6c4359f9aa15'
+Notice: /Stage[main]/Foobar/File[/etc/puppetlabs/facter/facts.d/foobar_c.txt]/content: 
+--- /etc/puppetlabs/facter/facts.d/foobar_c.txt 2016-08-04 18:10:58.287186698 +0000
++++ /tmp/puppet-file20160804-17692-9siz0b       2016-08-04 18:13:06.739207940 +0000
+@@ -1 +1 @@
+-foobar_c=-12
++foobar_c=-11
+\ No newline at end of file
+
+Info: Computing checksum on file /etc/puppetlabs/facter/facts.d/foobar_c.txt
+Info: /Stage[main]/Foobar/File[/etc/puppetlabs/facter/facts.d/foobar_c.txt]: Filebucketed /etc/puppetlabs/facter/facts.d/foobar_c.txt to puppet with sum e9b47099ee0e4eebea9830328c391ecb
+Notice: /Stage[main]/Foobar/File[/etc/puppetlabs/facter/facts.d/foobar_c.txt]/content: content changed '{md5}e9b47099ee0e4eebea9830328c391ecb' to '{md5}a5ec02040c24119bf675a174a997a3ab'
+Notice: /Stage[main]/Foobar/File[/tmp/foobar_value]/content: 
+--- /tmp/foobar_value   2016-08-04 18:11:22.900573999 +0000
++++ /tmp/puppet-file20160804-17692-tz00tr       2016-08-04 18:13:06.751208128 +0000
+@@ -1 +1 @@
+-0
+\ No newline at end of file
++1
+\ No newline at end of file
+
+Info: Computing checksum on file /tmp/foobar_value
+Info: FileBucket got a duplicate file {md5}cfcd208495d565ef66e7dff9f98764da
+Info: /Stage[main]/Foobar/File[/tmp/foobar_value]: Filebucketed /tmp/foobar_value to puppet with sum cfcd208495d565ef66e7dff9f98764da
+Notice: /Stage[main]/Foobar/File[/tmp/foobar_value]/content: content changed '{md5}cfcd208495d565ef66e7dff9f98764da' to '{md5}c4ca4238a0b923820dcc509a6f75849b'
+Notice: Applied catalog in 0.08 seconds
+[root@puppetserver-cache-test foobar]# cat /tmp/foobar_value                                                                                                                                                                                   
+1[root@puppetserver-cache-test foobar]# facter foobar_a foobar_b foobar_c                                                                                                                                                                      
+foobar_a => 0
+foobar_b => 3
+foobar_c => -11
+
+ot@puppetserver-cache-test foobar]# puppet agent -t                                                                                                                                                                                         
+Info: Using configured environment 'production'
+Info: Retrieving pluginfacts
+Info: Retrieving plugin
+Info: Caching catalog for puppetserver-cache-test
+Info: Applying configuration version '1470334386'
+Notice: /Stage[main]/Foobar/File[/tmp/foobar_value]/content: 
+--- /tmp/foobar_value   2016-08-04 18:13:06.762208301 +0000
++++ /tmp/puppet-file20160804-17745-zonbfw       2016-08-04 18:13:24.235483250 +0000
+@@ -1 +1 @@
+-1
+\ No newline at end of file
++2
+\ No newline at end of file
+
+Info: Computing checksum on file /tmp/foobar_value
+Info: FileBucket got a duplicate file {md5}c4ca4238a0b923820dcc509a6f75849b
+Info: /Stage[main]/Foobar/File[/tmp/foobar_value]: Filebucketed /tmp/foobar_value to puppet with sum c4ca4238a0b923820dcc509a6f75849b
+Notice: /Stage[main]/Foobar/File[/tmp/foobar_value]/content: content changed '{md5}c4ca4238a0b923820dcc509a6f75849b' to '{md5}c81e728d9d4c2f636f067f89cc14862c'
+Notice: Applied catalog in 0.05 seconds
+[root@puppetserver-cache-test foobar]# cat /tmp/foobar_value                                                                                                                                                                                   
+2[root@puppetserver-cache-test foobar]# facter foobar_a foobar_b foobar_c                                                                                                                                                                      
+foobar_a => 0
+foobar_b => 3
+foobar_c => -11
+
